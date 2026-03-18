@@ -4,3 +4,12 @@ main: com.tommustbe12.simpleTips.SimpleTips
 api-version: '1.20'
 authors: [ TomMustBe12 ]
 website: https://tommustbe12.com/
+commands:
+  tip:
+    description: Main command for SimpleTips
+    usage: /tip
+
+permissions:
+  simpletips.manage:
+    description: Manage tips
+    default: op
