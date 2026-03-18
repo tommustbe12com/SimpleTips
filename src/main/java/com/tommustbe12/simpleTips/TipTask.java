@@ -14,15 +14,33 @@ public class TipTask extends BukkitRunnable {
 
     @Override
     public void run() {
-        String tip = manager.getRandomTip();
-        if (tip == null) return;
-
         boolean opsEnabled = SimpleTips.getInstance().getConfig().getBoolean("ops-enabled", true);
+        String mode = SimpleTips.getInstance().getConfig().getString("display", "chat");
 
         for (Player player : Bukkit.getOnlinePlayers()) {
+
             if (!opsEnabled && player.isOp()) continue;
 
-            player.sendMessage(tip);
+            String tip = manager.getFormattedTip(player);
+            if (tip == null) return;
+
+            switch (mode.toLowerCase()) {
+                case "actionbar":
+                    player.sendActionBar(tip);
+                    break;
+
+                case "title":
+                    player.sendTitle(tip, "", 10, 60, 10);
+                    break;
+
+                case "subtitle":
+                    player.sendTitle("", tip, 10, 60, 10);
+                    break;
+
+                default:
+                    player.sendMessage(tip);
+                    break;
+            }
         }
     }
 }

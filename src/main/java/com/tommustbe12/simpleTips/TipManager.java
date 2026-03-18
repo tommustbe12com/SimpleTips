@@ -1,6 +1,8 @@
 package com.tommustbe12.simpleTips;
 
+import me.clip.placeholderapi.PlaceholderAPI;
 import org.bukkit.ChatColor;
+import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,10 +42,16 @@ public class TipManager {
         }
     }
 
-    public String getRandomTip() {
+    public String getFormattedTip(Player player) {
         if (tips.isEmpty()) return null;
-        return ChatColor.translateAlternateColorCodes('&',
-                tips.get((int) (Math.random() * tips.size()))
-        );
+
+        String tip = tips.get((int) (Math.random() * tips.size()));
+        tip = ChatColor.translateAlternateColorCodes('&', tip);
+
+        if (plugin.getServer().getPluginManager().isPluginEnabled("PlaceholderAPI")) {
+            tip = PlaceholderAPI.setPlaceholders(player, tip);
+        }
+
+        return tip;
     }
 }

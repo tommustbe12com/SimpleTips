@@ -1,4 +1,5 @@
 interval: 120
 ops-enabled: true
+display: chat
 
 tips: []
